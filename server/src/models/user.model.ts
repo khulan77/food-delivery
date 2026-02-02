@@ -15,7 +15,7 @@ type User = {
 
 const userSchema = new Schema<User>({
   email: { type: String, requied: true },
-  phoneNUmber: { type: String, required: true },
+  password: { type: String, required: true },
 });
 
 export const UserModel = models["Users"] || model("Users", userSchema);

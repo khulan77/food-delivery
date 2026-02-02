@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { UserModel } from "../../models";
-export const singUpController = async (req: Request, res: Response) => {
+export const singInController = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const user = UserModel.findOne({ email });
