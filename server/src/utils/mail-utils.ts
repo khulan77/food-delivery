@@ -12,10 +12,11 @@ const transport = nodemailer.createTransport({
     pass: AUTH_PASS,
   },
 });
+// console.log(AUTH_EMAIL, AUTH_PASS);
 
 export const verfiyUserEmail = async (receiver: string, verifyLink: string) => {
   await transport.sendMail({
-    from: `"Food delivery" ${AUTH_EMAIL}`,
+    from: `"Food Delivery" ${AUTH_EMAIL}`,
     to: receiver,
     subject: "Verify user",
     html: `<div style=" width: 250px; height: 250px; border-radius: 6px; background-color: gray;">
