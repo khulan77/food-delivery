@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { singUpController } from "../controllers";
-import { verifyUser } from "../controllers/users/verify-user.controller";
+import { singUpController } from "../controllers/Authentication";
+import { verifyUser } from "../controllers/Authentication/verify-user.controller";
 
 const router = Router();
 

@@ -12,7 +12,6 @@ const transport = nodemailer.createTransport({
     pass: AUTH_PASS,
   },
 });
-// console.log(AUTH_EMAIL, AUTH_PASS);
 
 export const verfiyUserEmail = async (receiver: string, verifyLink: string) => {
   await transport.sendMail({
