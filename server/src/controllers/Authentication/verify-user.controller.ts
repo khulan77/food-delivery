@@ -6,7 +6,7 @@ export const verifyUser = async (req: Request, res: Response) => {
     const { token } = req.query;
 
     if (!token) {
-      return res.status(400).json({ message: "Токен олдсонгүй." });
+      return res.status(400).json({ message: "Token oldsongvi" });
     }
 
     const decodedToken = jwt.verify(
@@ -23,22 +23,22 @@ export const verifyUser = async (req: Request, res: Response) => {
     ).select("-password");
 
     if (!verifiedUser) {
-      return res.status(404).json({ message: "Хэрэглэгч олдсонгүй." });
+      return res.status(404).json({ message: "Hereglegch oldsongvi." });
     }
 
     return res.status(200).json({
       success: true,
-      message: "Амжилттай баталгаажлаа.",
+      message: "Amjilttai batalgaajlaa",
       data: verifiedUser,
     });
   } catch (error: any) {
     if (error.name === "TokenExpiredError") {
       return res
         .status(400)
-        .json({ message: "Баталгаажуулах хугацаа дууссан байна." });
+        .json({ message: "Batalgaajuulah hugatsaaa duussan." });
     }
     return res
       .status(500)
-      .json({ message: "Серверийн алдаа", error: error.message });
+      .json({ message: "Serveriin aldaa", error: error.message });
   }
 };

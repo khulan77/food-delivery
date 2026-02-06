@@ -12,7 +12,7 @@ export const singUpController = async (req: Request, res: Response) => {
     if (existingUser) {
       return res.status(400).json({
         success: false,
-        message: "Хэрэглэгч аль хэдийн бүртгэгдсэн байна",
+        message: "Hereglegch ali hediin burtgegdsen baina",
       });
     }
 
@@ -31,17 +31,14 @@ export const singUpController = async (req: Request, res: Response) => {
     const verificationLink = `${process.env.BACKEND_API}/auth/verify-users?token=${token}`;
     await verfiyUserEmail(email, verificationLink);
 
-    const { password: _, ...userData } = newUser.toObject();
-
     res.status(201).json({
       success: true,
-      message: "Баталгаажуулах линк имэйл рүү тань илгээгдлээ.",
-      data: userData,
+      message: "Batalgaajuulah link emailruu ilgeelee.",
     });
   } catch (error) {
     console.error("Signup error:", error);
     res
       .status(500)
-      .json({ success: false, message: "Серверийн алдаа гарлаа." });
+      .json({ success: false, message: "Serweriiin aldaa garlaa" });
   }
 };
