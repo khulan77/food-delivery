@@ -1,44 +1,57 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../../models";
+import { verfiyUserEmail } from "../../utils/mail-utils";
+
 export const verifyUser = async (req: Request, res: Response) => {
   try {
-    const { token } = req.query;
+    // 🔹 1. URL query-с token авах
+    const { token, email, password, userName, phoneNumber, address } = req.body;
 
-    if (!token) {
-      return res.status(400).json({ message: "Token oldsongvi" });
-    }
-
-    const decodedToken = jwt.verify(
-      token as string,
-      process.env.JWT_SECRET!,
-    ) as {
-      email: string;
-    };
-
-    const verifiedUser = await UserModel.findOneAndUpdate(
-      { email: decodedToken.email },
-      { isVerified: true },
-      { new: true },
-    ).select("-password");
-
-    if (!verifiedUser) {
-      return res.status(404).json({ message: "Hereglegch oldsongvi." });
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: "Amjilttai batalgaajlaa",
-      data: verifiedUser,
+    const newUser = await UserModel.create({
+      userName,
+      email,
+      password,
+      phoneNumber,
+      address,
     });
+    const decoded = jwt.sign({ _id: newUser._id }, "hi", token);
+    await verfiyUserEmail(
+      email,
+      `${process.env.BACKEND_API}/verify-user?token=${token}`,
+    );
+    res.status(400).send({ message: "sent", user: newUser, token });
+
+    // // 🔹 3. User олох
+    // const user = await UserModel.findOne({ email: decoded.email });
+
+    // if (!user) {
+    //   res.status(404).json({ message: "User not found" });
+    //   return;
+    // }
+
+    // // 🔹 4. Аль хэдийн verify болсон эсэх
+    // if (user.isVerified) {
+    //   res.status(200).json({ message: "User already verified" });
+    //   return;
+    // }
+
+    // // 🔹 5. Verify хийх
+    // user.isVerified = true;
+    // await user.save();
+
+    // res.status(200).json({
+    //   message: "Email verified successfully",
+    //   data: {
+    //     _id: user._id,
+    //     email: user.email,
+    //     isVerified: user.isVerified,
+    //   },
+    // });
   } catch (error: any) {
-    if (error.name === "TokenExpiredError") {
-      return res
-        .status(400)
-        .json({ message: "Batalgaajuulah hugatsaaa duussan." });
-    }
-    return res
-      .status(500)
-      .json({ message: "Serveriin aldaa", error: error.message });
+    res.status(400).json({
+      message: "Verification failed",
+      error: error.message,
+    });
   }
 };

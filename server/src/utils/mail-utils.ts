@@ -15,12 +15,32 @@ const transport = nodemailer.createTransport({
 
 export const verfiyUserEmail = async (receiver: string, verifyLink: string) => {
   await transport.sendMail({
-    from: `"Food Delivery" ${AUTH_EMAIL}`,
+    from: `"Food Delivery" <${AUTH_EMAIL}>`,
     to: receiver,
-    subject: "Verify user",
-    html: `<div style=" width: 250px; height: 250px; border-radius: 6px; background-color: gray;">
-    <a href="${verifyLink}" target="_blank" style="font-size: 20px; color:black"></a>
-    </div>
+    subject: "Email Verification",
+    html: `
+      <div style="font-family:sans-serif;text-align:center;padding:30px">
+        <h2 style="margin-bottom:20px">🍔 Food Delivery</h2>
+        <p style="margin-bottom:25px">Email-ээ баталгаажуулна уу 👇</p>
+
+        <a href="${verifyLink}" target="_blank"
+           style="
+             display:inline-block;
+             background:#28a745;
+             color:white;
+             padding:14px 22px;
+             border-radius:8px;
+             text-decoration:none;
+             font-weight:bold;
+             font-size:16px;
+           ">
+           ✔ Email баталгаажуулах
+        </a>
+
+        <p style="margin-top:25px;font-size:12px;color:gray">
+          Хэрэв та бүртгүүлээгүй бол энэ email-ийг үл тоо.
+        </p>
+      </div>
     `,
   });
 };

@@ -7,35 +7,31 @@ export enum UserRole {
 
 export type User = {
   _id: ObjectId;
-  email: String;
-  password: String;
-  phoneNUmber: String;
-  address: String;
+  email: string;
+  password: string;
+  phoneNUmber?: string;
+  address?: string;
   role: UserRole;
-  orderedFoods: ObjectId[];
-  ttl: Date;
-  isVerified: Boolean;
+  orderedFoods?: ObjectId[];
+  isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
 
 const userSchema = new Schema<User>(
   {
-    email: { type: String, requied: true },
+    email: { type: String, required: true }, // requied typo засав
     password: { type: String, required: true },
-    phoneNUmber: { type: String, required: false },
-    address: { type: String, required: false },
+    phoneNUmber: { type: String },
+    address: { type: String },
     role: {
       type: String,
       enum: Object.values(UserRole),
       default: UserRole.USER,
-      required: true,
     },
-    isVerified: { type: Boolean, default: false, required: false },
-    ttl: { type: Date, required: true },
+    isVerified: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
-userSchema.index({ ttl: 1 }, { expireAfterSeconds: 0 });
 
 export const UserModel = models["Users"] || model("Users", userSchema);
