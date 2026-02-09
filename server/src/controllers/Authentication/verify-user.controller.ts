@@ -5,7 +5,6 @@ import { verfiyUserEmail } from "../../utils/mail-utils";
 
 export const verifyUser = async (req: Request, res: Response) => {
   try {
-    // 🔹 1. URL query-с token авах
     const { token, email, password, userName, phoneNumber, address } = req.body;
 
     const newUser = await UserModel.create({

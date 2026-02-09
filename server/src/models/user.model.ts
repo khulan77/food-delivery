@@ -20,7 +20,7 @@ export type User = {
 
 const userSchema = new Schema<User>(
   {
-    email: { type: String, required: true }, // requied typo засав
+    email: { type: String, required: true },
     password: { type: String, required: true },
     phoneNUmber: { type: String },
     address: { type: String },
@@ -29,6 +29,7 @@ const userSchema = new Schema<User>(
       enum: Object.values(UserRole),
       default: UserRole.USER,
     },
+    orderedFoods: [{ type: Schema.Types.ObjectId, ref: "Foods" }],
     isVerified: { type: Boolean, default: false },
   },
   { timestamps: true },
