@@ -8,8 +8,8 @@ const { AUTH_EMAIL, AUTH_PASS } = process.env;
 const transport = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: AUTH_EMAIL,
-    pass: AUTH_PASS,
+    user: process.env.AUTH_EMAIL,
+    pass: process.env.AUTH_PASS,
   },
 });
 
