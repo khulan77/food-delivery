@@ -18,7 +18,7 @@ export const resetPassword = async (req: Request, res: Response) => {
     user.resetTokenExpire = Date.now() + 1000 * 60 * 10;
     await user.save();
 
-    const resetLink = `${process.env.BASE_URL}/api/users/reset-password?token=${resetToken}`;
+    const resetLink = `${process.env.BACKEND_API}/api/users/reset-password?token=${resetToken}`;
     await verfiyUserEmail(user.email, resetLink);
 
     res.json({ message: "Reset password email sent" });

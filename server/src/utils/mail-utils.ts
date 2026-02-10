@@ -4,17 +4,7 @@ import { Resend } from "resend";
 
 configDotenv();
 
-// const { AUTH_EMAIL, AUTH_PASS } = process.env;
-
-// const transport = nodemailer.createTransport({
-//   service: "gmail",
-//   auth: {
-//     user: process.env.AUTH_EMAIL,
-//     pass: process.env.AUTH_PASS,
-//   },
-// });
-
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY);
 export const verfiyUserEmail = async (receiver: string, verifyLink: string) => {
   await resend.emails.send({
     from: "onboarding@resend.dev",

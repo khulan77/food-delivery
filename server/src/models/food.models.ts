@@ -1,6 +1,6 @@
 import { model, models, ObjectId, Schema } from "mongoose";
 
-type FoodId = {
+export type FoodId = {
   foodName: String;
   price: Number;
   image: String;
@@ -10,7 +10,7 @@ type FoodId = {
   updatedAt: Date;
 };
 
-export const foodId = new Schema<FoodId>(
+const foodSchema = new Schema<FoodId>(
   {
     foodName: { type: String, required: true },
     price: { type: String, required: true },
@@ -23,4 +23,4 @@ export const foodId = new Schema<FoodId>(
   { timestamps: true },
 );
 
-export const FoodModel = models["Food"] || model("Food", foodId);
+export const FoodModel = models["Food"] || model("Food", foodSchema);
