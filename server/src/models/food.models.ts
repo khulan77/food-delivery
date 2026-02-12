@@ -24,3 +24,4 @@ const foodSchema = new Schema<FoodId>(
 );
 
 export const FoodModel = models["Food"] || model("Food", foodSchema);
+ 
