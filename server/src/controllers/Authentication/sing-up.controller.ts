@@ -34,7 +34,7 @@ export const singUpController = async (req: Request, res: Response) => {
     });
     return;
   } catch (error) {
-    console.log("🔥 SIGNUP ERROR:", error);
+    console.log("SIGNUP ERROR:", error);
     res.status(500).json({
       success: false,
       message: "serveriin aldaa",
