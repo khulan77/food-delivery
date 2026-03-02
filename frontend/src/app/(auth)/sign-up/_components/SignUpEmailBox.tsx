@@ -37,12 +37,12 @@ export const SignUpEmailBox = ({
   };
 
   return (
-    <Card className="w-[416px] border-none shadow-none gap-6 flex flex-col">
+    <Card className="w-[416px] border-none shadow-none gap-6 p-0 flex flex-col">
       <DynamicCardHeader
         title="Create your account"
         description="Sign up to explore your favorite dishes."
       />
-      <CardContent className="p-0">
+      <CardContent className="p-0 m-0">
         <form onSubmit={handleNext}>
           <div className="flex flex-col gap-6">
             <div className="grid items-center w-full gap-6">
